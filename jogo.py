@@ -42,11 +42,15 @@ class Jogo():
         if 'j0' in self.pecas:
             pass
         if self.tipo == 'sequencia':
+            print(self.cor, peca)
             if peca[0] == self.cor:
+                print('oi')
                 n_comeco = get_n_comeco(self.pecas)
                 n_final = get_n_final(self.pecas)
-                if int(peca[1]) == n_comeco-1 or int(peca[1]) == n_final+1:
-                    return True
+                if int(peca[1]) == n_comeco-1:
+                    return 0
+                if int(peca[1]) == n_final+1:
+                    return len(self.pecas)
         elif self.tipo == 'trinca':
             peca_num = get_n_comeco(self.pecas, True)
             if int(peca[1]) == peca_num:
@@ -55,9 +59,11 @@ class Jogo():
                     if p[0] == peca[0]:
                         cor_repetida = True
                 if not cor_repetida:
-                    return True
-        return False
+                    return len(self.pecas)
+        return -1
 
+
+        
             
 if __name__ == "__main__":
     j1 = Jogo('trinca', ['b1', 'y1', 'j0'])
