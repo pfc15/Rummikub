@@ -1,12 +1,13 @@
 from numpy.random import randint
 
 class Estado():
-    def __init__(self, mesa,jogador, pecas, vez=0,movimento=0, comeco=False):
+    def __init__(self, mesa,jogador, pecas, vez=0,movimento=0, acao=0, comeco=False):
         self.mesa = mesa
         self.jogador = jogador
         self.pecas = pecas
         self.vez = vez
         self.movimento = movimento
+        self.acao = acao
         if comeco:
             self.comeca_jogo()
         
@@ -31,7 +32,7 @@ class Estado():
         return pecas
 
     def get_fitness(self):
-        return (self.vez, len(self.jogador))
+        return (len(self.jogador), self.vez)
     
     def mesa_to_string(self):
         s = ""
@@ -40,6 +41,6 @@ class Estado():
         return s
 
     def to_string(self):
-        a = f"mesa:{self.mesa_to_string()};\n jogador: {self.jogador};\n vez: {self.vez};\npecas:{len(self.pecas)}"
+        a = f"mesa:{self.mesa_to_string()};\n jogador: {self.jogador};\n vez: {self.vez};\npecas:{len(self.pecas)} quant_acoes:{self.acao}"
         return a
 
