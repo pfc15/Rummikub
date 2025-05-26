@@ -221,21 +221,22 @@ def get_completa_dupla_jogador(estado):
                     
                     for jogo_pecas in duplas_sequencia:
                         pecas = [estado.jogador[x] for x in jogo_pecas]
-                        jogo = Jogo("sequencia", pecas[:], cor=estado.jogador[jogo_pecas[0]][0])
+                        jogo = Jogo("sequencia", pecas[:], cor=pecas[0][0])
                         index = jogo.can_add(jogo_mesa.pecas[i_peca])
                         if index != -1:
                             jogo.pecas.insert(index, peca)
                             acoes.append([(i_mesa, i_peca), jogo_pecas, jogo])
             elif jogo_mesa.tipo == "sequencia":
                 for jogo_pecas in duplas_sequencia:
-                    jogo = Jogo("sequencia", jogo_pecas, cor=estado.jogador[jogo_pecas[0]][0])
+                    pecas = [estado.jogador[x] for x in jogo_pecas]
+                    jogo = Jogo("sequencia", pecas[:], cor=pecas[0][0])
                     index = jogo.can_add(jogo_mesa.pecas[0])
                     if index != -1:
-                        jogo.pecas.insert(index, peca)
+                        jogo.pecas.insert(index, jogo_mesa.pecas[0])
                         acoes.append([(i_mesa, 0), jogo_pecas, jogo])
-                    index = jogo.can_add(jogo_mesa.pecas[-1], cor=estado.jogador[jogo_pecas[0]][0])
+                    index = jogo.can_add(jogo_mesa.pecas[-1])
                     if index != -1:
-                        jogo.pecas.insert(index, peca)
+                        jogo.pecas.insert(index, jogo_mesa.pecas[-1])
                         acoes.append([(i_mesa, len(jogo_mesa.pecas)-1), jogo_pecas, jogo])
                 
                 for jogo_pecas in duplas_trica:
@@ -243,11 +244,11 @@ def get_completa_dupla_jogador(estado):
                     jogo = Jogo("trinca", pecas[:])
                     index = jogo.can_add(jogo_mesa.pecas[0])
                     if index != -1:
-                        jogo.pecas.insert(index, peca)
+                        jogo.pecas.insert(index, jogo_mesa.pecas[0])
                         acoes.append([(i_mesa, 0), jogo_pecas, jogo])
                     index = jogo.can_add(jogo_mesa.pecas[-1])
                     if index != -1:
-                        jogo.pecas.insert(index, peca)
+                        jogo.pecas.insert(index, jogo_mesa.pecas[-1])
                         acoes.append([(i_mesa, len(jogo_mesa.pecas)-1), jogo_pecas, jogo])
     
     return acoes
