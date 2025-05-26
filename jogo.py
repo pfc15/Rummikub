@@ -14,7 +14,6 @@ class Jogo():
             peca_num = str(get_n_comeco(self.pecas, True))
             for p in self.pecas:
                 if p[0]!='j' and (p[1]!=peca_num or p[0] in cores):
-                    print(p)
                     return False
                 cores.append(p[1])
         elif self.tipo == 'sequencia':
@@ -26,7 +25,6 @@ class Jogo():
             n = int(self.pecas[cont][1])-cont-1
             for p in self.pecas:
                 if p[0]!='j'and (int(p[1])!=n+1 or self.cor != p[0]):
-                    print(p)
                     return False
                 n+=1
         return True
@@ -42,22 +40,24 @@ class Jogo():
         if 'j0' in self.pecas:
             pass
         if self.tipo == 'sequencia':
-            print(self.cor, peca)
             if peca[0] == self.cor:
-                print('oi')
-                n_comeco = get_n_comeco(self.pecas)
-                n_final = get_n_final(self.pecas)
-                if int(peca[1]) == n_comeco-1:
+                n_comeco = int(self.pecas[0][1:])
+                n_final = int(self.pecas[-1][1:])
+                # n_comeco = get_n_comeco(self.pecas)
+                # n_final = get_n_final(self.pecas)
+                if int(peca[1:]) == n_comeco-1:
                     return 0
-                if int(peca[1]) == n_final+1:
+                if int(peca[1:]) == n_final+1:
                     return len(self.pecas)
         elif self.tipo == 'trinca':
-            peca_num = get_n_comeco(self.pecas, True)
-            if int(peca[1]) == peca_num:
+            # peca_num = get_n_comeco(self.pecas, True)
+            peca_num = self.pecas[0][1:]
+            if int(peca[1:]) == int(peca_num):
                 cor_repetida = False
                 for p in self.pecas:
                     if p[0] == peca[0]:
                         cor_repetida = True
+                        break
                 if not cor_repetida:
                     return len(self.pecas)
         return -1
