@@ -26,35 +26,24 @@ def melhorar(estado):
         return faz_acao("move_mesa", movimento[index], estado)
     return faz_acao("compra_peca", [], estado)
 
-def melhor_fitness(a, b):
-    if a[0]!=b[0]:
-        return a[0]>b[0]
-    return a[1]>=b[1]
-
 
 if __name__ == "__main__":
     jogos = []
-    for i in range(100):
-        start_time = time.time()
-        estado_inicial = Estado([],[],[], comeco=True)
-        estado_atual = Estado(estado_inicial.mesa[:], estado_inicial.jogador[:], estado_inicial.pecas[:])
-        
-        geracao =0
-        restart = 0
-        while len(estado_atual.jogador)>0:
-            geracao+=1
-            melhorar(estado_atual)
-            # print(f'geracao: {geracao}: estado: {estado_atual.to_string()} restart: {restart}')
-            if geracao== 10000:
-                estado_atual = Estado(estado_inicial.mesa[:], estado_inicial.jogador[:], estado_inicial.pecas[:])
-                restart +=1
-                geracao = 0
-        if restart>0:
-            jogos.append((Estado(estado_atual.mesa[:], estado_atual.jogador[:], estado_atual.pecas[:], vez=estado_atual.vez), geracao, restart,time.time() - start_time))
-        print(f'jogo {i}')
-
-    for estado, geracao, restart, tempo in jogos:
-        print('-=-'*20)
-        print(f'geracao: {geracao+(restart*10000)}: estado: {estado_atual.to_string()} restart: {restart}')
-        print("--- %s seconds ---" % (tempo))
+    start_time = time.time()
+    estado_inicial = Estado([],[],[], comeco=True)
+    estado_atual = Estado(estado_inicial.mesa[:], estado_inicial.jogador[:], estado_inicial.pecas[:])
+    
+    geracao =0
+    restart = 0
+    while len(estado_atual.jogador)>0:
+        geracao+=1
+        melhorar(estado_atual)
+        # print(f'geracao: {geracao}: estado: {estado_atual.to_string()} restart: {restart}')
+        if geracao== 10000:
+            estado_atual = Estado(estado_inicial.mesa[:], estado_inicial.jogador[:], estado_inicial.pecas[:])
+            restart +=1
+            geracao = 0
+    print('-=-'*20)
+    print(f'geracao: {geracao+(restart*10000)}: estado: {estado_atual.to_string()} restart: {restart}')
+    print("--- %s seconds ---" % (time.time() - start_time))
 
