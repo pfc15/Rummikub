@@ -5,6 +5,7 @@ from util import search_element
 
 
 def faz_acao(tipo, acao, estado):
+    estado.acao+=1
     match tipo:
         case "add_peca": # acao = [index_jogo_mesa (qual jogo colocar), index_peca_jogador (qual peca colocar), index_peca_jogo (onde colocar no jogo)]
             estado.mesa[acao[0]].pecas.insert(acao[2], estado.jogador[acao[1]])
